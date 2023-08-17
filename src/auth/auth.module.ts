@@ -4,11 +4,10 @@ import { AuthService } from "./auth.service";
 import { UsersModule } from "../users/users.module";
 import { JwtModule } from "@nestjs/jwt";
 import { ConfigModule } from "@nestjs/config";
-import { JwtAuthGuard } from "./jwt-auth-guard";
 
 @Module({
   controllers: [AuthController],
-  providers: [AuthService, JwtAuthGuard],
+  providers: [AuthService],
   imports: [
     forwardRef(() => UsersModule),
     ConfigModule.forRoot({
@@ -19,6 +18,6 @@ import { JwtAuthGuard } from "./jwt-auth-guard";
       signOptions: { expiresIn: "24h" },
     }),
   ],
-  exports: [AuthService, JwtAuthGuard],
+  exports: [AuthService, JwtModule],
 })
 export class AuthModule {}
